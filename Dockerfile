@@ -1,8 +1,12 @@
-# Sử dụng JDK 17 làm base image
+# Sử dụng JDK 17 làm base image để build ứng dụng
 FROM eclipse-temurin:17-jdk as builder
 
 # Đặt thư mục làm thư mục làm việc
 WORKDIR /app
+
+# Copy file mvnw trước và cấp quyền thực thi
+COPY mvnw .
+RUN chmod +x mvnw
 
 # Copy toàn bộ mã nguồn vào container
 COPY . .
@@ -10,7 +14,7 @@ COPY . .
 # Biên dịch ứng dụng với Maven (bỏ qua test để build nhanh hơn)
 RUN ./mvnw clean package -DskipTests
 
-# Giai đoạn chạy ứng dụng (dùng JDK runtime để giảm dung lượng image)
+# Giai đoạn chạy ứng dụng (dùng JRE runtime để giảm dung lượng image)
 FROM eclipse-temurin:17-jre
 WORKDIR /app
 
