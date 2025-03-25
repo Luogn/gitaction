@@ -3,7 +3,7 @@ name: Build & Push Docker Image
 on:
   push:
     branches:
-      - master  # Chạy khi có push lên nhánh main jbbbbbbbbllll
+      - master  # Chạy khi có push lên nhánh mainl
 
 jobs:
   build:
