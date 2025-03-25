@@ -4,13 +4,12 @@ FROM eclipse-temurin:17-jdk as builder
 # Đặt thư mục làm thư mục làm việc
 WORKDIR /app
 
-# Copy file mvnw trước, cấp quyền thực thi và copy các file cần thiết
-COPY .mvn/ .mvn/
-COPY mvnw pom.xml ./
+# Copy file mvnw trước và cấp quyền thực thi
+COPY mvnw .
 RUN chmod +x mvnw
 
 # Copy toàn bộ mã nguồn vào container
-COPY src/ src/
+COPY . .
 
 # Biên dịch ứng dụng với Maven (bỏ qua test để build nhanh hơn)
 RUN ./mvnw clean package -DskipTests
